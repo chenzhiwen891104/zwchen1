@@ -1,1 +1,31 @@
 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+  namespace: blue
+  labels:
+    app: myapp
+    version: blue
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+      version: blue
+  template:
+    metadata:
+      labels:
+        app: myapp
+        version: blue
+    spec:
+      containers:
+      - name: myapp
+        image: myregistry/myapp:202603221212
+        ports:
+        - containerPort: 8080
+        env:
+        - name: VERSION
+          value: "blue"
+        - name: COLOR
+          value: "blue"
